@@ -90,7 +90,12 @@ class SlawCLI < Thor
     generator = Slaw::ActGenerator.new(options[:grammar] || 'za')
 
     doc = File.open(name, 'r') { |f| doc = generator.builder.parse_xml(f.read) }
-    puts generator.text_from_act(doc)
+    
+    generated_text = generator.text_from_act(doc)
+    
+    # Apri il file 'output.txt' in modalità scrittura ('w') e scrivi il testo generato
+    File.open('output.txt', 'w') { |file| file.write(generated_text) 
+
   end
 
   map %w(--version) => :__print_version
